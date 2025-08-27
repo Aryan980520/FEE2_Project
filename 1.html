@@ -1,11 +1,81 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Budget App</title>
+  <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
-    <h1>NEw page</h1>
+<body class="bg-gray-100 min-h-screen flex flex-col">
+
+  <!-- Navbar -->
+  <div class="bg-blue-600 text-white px-6 py-4 shadow-md flex justify-between items-center">
+    <h1 class="text-xl font-bold">Expense Tracker App</h1>
+    <ul class="flex space-x-6">
+      <a href="Index.html"><button class="font-bold bg-blue-800 p-2 rounded-xl hover:bg-blue-500 hover:scale-105 transform transition duration-300 ease-in-out">Home</button></a>
+      <a href="Index.html"><button class="font-bold bg-blue-800 p-2 rounded-xl hover:bg-blue-500 hover:scale-105 transform transition duration-300 ease-in-out">About</button></a>
+      <a href="contact.html"><button class="font-bold bg-blue-800 p-2 rounded-xl hover:bg-blue-500 hover:scale-105 transform transition duration-300 ease-in-out">Contact</button></a>
+    </ul>
+  </div>
+
+  <!-- Full Page Content -->
+  <div class="flex-1 flex justify-center items-start p-12">
+    <div class="bg-white shadow-lg rounded-lg p-8 w-full h-screen">
+      
+      <h2 class="text-3xl font-bold text-center mb-8">Expense Tracker</h2>
+
+      <!-- Input Section -->
+      <div class="flex flex-wrap gap-10 items-center mb-6">
+        <input type="number" placeholder="Enter Your Budget!" 
+               class="border px-3 py-2 rounded-md">
+
+        <button class="bg-blue-600 text-white px-4 py-2 rounded-md ">
+          Calculate
+        </button>
+
+        <input type="text" placeholder="Enter Your Expenses Desc!" 
+               class="border px-3 py-2 rounded-md">
+
+        <input type="number" placeholder="Expenses Amount" 
+               class="border px-3 py-2 rounded-md">
+
+        <button class="bg-blue-600 text-white px-4 py-2 rounded-md">Add</button>
+      </div>
+
+      <!-- Cards Section -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+        <div class="flex items-center bg-blue-100 p-6 rounded-xl shadow">
+          <div class="text-4xl mr-4">💰</div>
+          <div>
+            <p class="text-gray-500">Budget</p>
+          </div>
+        </div>
+        <div class="flex items-center bg-yellow-100 p-6 rounded-xl shadow">
+          <div class="text-4xl mr-4">💳</div>
+          <div>
+            <p class="text-gray-500">Expenses</p>
+          </div>
+        </div>
+        <div class="flex items-center bg-green-100 p-6 rounded-xl shadow">
+          <div class="text-4xl mr-4">💵</div>
+          <div>
+            <p class="text-gray-500">Balance</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Budget Details Table -->
+      <div class="bg-white shadow rounded-md w-full p-4">
+        <h2 class="text-lg font-semibold mb-3">Budget Details</h2>
+        <div class="grid grid-cols-4 font-semibold bg-gray-100 border rounded-md">
+          <div class="p-2 border">#</div>
+          <div class="p-2 border">Detail</div>
+          <div class="p-2 border">Amount</div>
+          <div class="p-2 border">Action</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
 </body>
 </html>
