@@ -1,77 +1,154 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Expense Tracker</title>
+  <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
-    <main class="relative w-full h-screen overflow-hidden">
-        
-        
-        <div class="absolute w-[950px] h-[950px] bg-[#476EF7] rounded-full top-[-120px] right-[-375px]">
+<body class="bg-gradient-to-tr from-purple-100 via-indigo-200 to-pink-100 flex flex-col justify-between font-sans">
 
-        </div>
+<!--Header--> 
+<header class="flex items-center justify-between px-10 py-6 shadow-md bg-white/80 backdrop-blur-md">
+  <div class="flex items-center gap-3">
+    <h1 class="text-3xl font-extrabold text-gray-800">Expense Tracker</h1>
+    <img class="w-10 h-10" src="https://cdn-icons-png.freepik.com/256/10758/10758836.png" alt="logo">
+  </div>
+  <nav>
+    <ul class="flex gap-6 text-gray-600 font-medium">
+       <li><a href="index.html" class="px-5 py-2 rounded-lg font-medium shadow hover:bg-gray-400 hover:bg-opacity-40">Home</a></li>
+     <li><a href="about.html" class="px-5 py-2 rounded-lg font-medium shadow hover:bg-gray-400 hover:bg-opacity-40">About</a></li>
+     <li><a href="contact.html" class="px-5 py-2 rounded-lg font-medium shadow hover:bg-gray-400 hover:bg-opacity-40">Contact</a></li>
+     <li><a href="feedback.html" class="px-5 py-2 rounded-lg font-medium shadow hover:bg-gray-400 hover:bg-opacity-40">feedback</a></li>
+     <li><a href="1.html" class="px-5 py-2 rounded-lg font-medium shadow hover:bg-gray-400 hover:bg-opacity-40">Dashboard</a></li>
+     <li><a href="sign.html" class=" border border-black p-2 hover:bg-black hover:text-white transition">Sign in</a></li>
+    </ul>
+  </nav>
+</header>
 
-        <div class="flex m-28">
-            <h1 class="text-6xl font-bold">Expense Tracker</h1>
-            <img class="ml-4 w-10 h-10 mt-2" src="https://cdn-icons-png.freepik.com/256/10758/10758836.png?semt=ais_white_label" alt="">
-            
-        </div>
-        
-        <p class="absolute top-44 left-28 text-xl font-bold text-blue-600 ">Track your money. Control your life.</p>
+<!-- Hero Section -->
+<section class="flex flex-col items-center justify-center text-center px-8 py-20 h-screen">
+  <h2 class="text-6xl font-extrabold text-gray-900">Unlock Financial Clarity</h2>
+  <p class="mt-6 text-lg text-gray-700 max-w-2xl">
+    Know where your money is going. Track how you’re spending and discover trends to improve your financial habits.
+  </p>
+  <button class="m-10 px-8 py-4 bg-black text-white font-medium rounded-lg hover:bg-indigo-800 transition">
+   <ul><a href="1.html">Get started</a></ul>
+  </button>
+  
 
+  <!-- Features -->
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 text-center mt-10">
+    <!-- Feature 1 -->
+    <div class="p-8 rounded-2xl border border-black shadow-lg bg-white/70 hover:scale-105 transition">
+      <img src="https://cdn-icons-png.flaticon.com/512/1161/1161388.png" class="w-12 mx-auto mb-4" alt="">
+      <h3 class="font-semibold text-xl mb-2">Expense Insights</h3>
+      <p class="text-gray-600 text-sm">Understand your spending with detailed insights.</p>
+    </div>
 
+    <!-- Feature 2 -->
+    <div class="p-8 rounded-2xl border border-black shadow-lg bg-white/70 hover:scale-105 transition">
+      <img src="https://cdn-icons-png.flaticon.com/512/1490/1490859.png" class="w-12 mx-auto mb-4" alt="">
+      <h3 class="font-semibold text-xl mb-2">Automated Budgeting</h3>
+      <p class="text-gray-600 text-sm">Track and analyze your expenses effortlessly.</p>
+    </div>
 
-        <div class="absolute top-8 right-8 flex flex-col items-end gap-6">
-    <a href="1.html">
+    <!-- Feature 3 -->
+    <div class="p-8 rounded-2xl border border-black shadow-lg bg-white/70 hover:scale-105 transition">
+      <img src="https://cdn-icons-png.flaticon.com/512/2164/2164889.png" class="w-12 mx-auto mb-4" alt="">
+      <h3 class="font-semibold text-xl mb-2">Custom Reports</h3>
+      <p class="text-gray-600 text-sm">Create personalized financial reports with ease.</p>
+    </div>
 
-    </a>
-</div>
-        
-        <div>
-            <p class="text-4xl ml-28 font-bold">Hello,please enter your</p>
-            <h1 class="text-8xl ml-28 rounded-xl text-blue-600 font-bold">Details</h1>
-            <input class="bg-gray-100 border border-2 shadow-xl p-3 ml-28 mb-4 mt-2" type="text" placeholder="Name"> <br>
-            <input class="bg-gray-100 border border-2 shadow-xl p-3 ml-28" type="text" placeholder="Phone Number"> <br>
-            <a href="1.html"><button class="text-2xl ml-28 bg-blue-600 p-2 text-white text-2xl rounded-xl hover:bg-blue-500 mt-4">Login</button></a>
-            <button class="absolute right-16 bottom-16 bg-gray-100 rounded-xl p-3 hover:bg-gray-500">Light</button>
-        </div>
+    <!-- Feature 4 -->
+    <div class="p-8 rounded-2xl border border-black shadow-lg bg-white/70 hover:scale-105 transition">
+      <img src="https://cdn-icons-png.flaticon.com/512/9068/9068970.png" class="w-12 mx-auto mb-4" alt="">
+      <h3 class="font-semibold text-xl mb-2">Smart Notifications</h3>
+      <p class="text-gray-600 text-sm">Get instant alerts for overspending or upcoming bills.</p>
+    </div>
+  </div>
+</section>
 
+<!-- Why Choose Us Section -->
+<section class="bg-white py-20 px-10">
+  <h2 class="text-center text-4xl font-bold text-gray-800 mb-10">Why Choose Expense Tracker?</h2>
+  <div class="grid md:grid-cols-3 gap-10 text-center">
+    <div class="p-6 rounded-lg bg-gradient-to-br from-indigo-100 to-purple-100 shadow-lg hover:scale-105 transition">
+      <img src="https://cdn-icons-png.flaticon.com/512/4313/4313556.png" class="w-14 mx-auto mb-4" alt="">
+      <h3 class="text-lg font-semibold mb-2">User-Friendly Dashboard</h3>
+      <p class="text-gray-600 text-sm">Navigate your expenses easily with our clean design.</p>
+    </div>
+    <div class="p-6 rounded-lg bg-gradient-to-br from-pink-100 to-yellow-100 shadow-lg hover:scale-105 transition">
+      <img src="https://cdn-icons-png.flaticon.com/512/2345/2345336.png" class="w-14 mx-auto mb-4" alt="">
+      <h3 class="text-lg font-semibold mb-2">Secure & Private</h3>
+      <p class="text-gray-600 text-sm">Your data is encrypted and never shared with third parties.</p>
+    </div>
+    <div class="p-6 rounded-lg bg-gradient-to-br from-green-100 to-teal-100 shadow-lg hover:scale-105 transition">
+      <img src="https://cdn-icons-png.flaticon.com/512/4467/4467515.png" class="w-14 mx-auto mb-4" alt="">
+      <h3 class="text-lg font-semibold mb-2">Real-Time Sync</h3>
+      <p class="text-gray-600 text-sm">Access your financial data from any device instantly.</p>
+    </div>
+  </div>
+</section>
 
-        <!-- Theme Toggle Button -->
-        <button class="absolute right-16 bottom-16 bg-gray-100 rounded-xl px-6 py-3 shadow hover:bg-gray-600 hover:text-white transition duration-300 ">
-            Light
-        </button>
+<!-- Stats Section -->
+<section class="text-center py-20 bg-gradient-to-tr from-indigo-200 to-purple-100">
+  <h2 class="text-4xl font-bold mb-10 text-gray-800">Our Achievements</h2>
+  <div class="flex flex-wrap justify-center gap-16">
+    <div>
+      <h3 class="text-5xl font-extrabold text-indigo-700">10K+</h3>
+      <p class="text-gray-600">Active Users</p>
+    </div>
+    <div>
+      <h3 class="text-5xl font-extrabold text-indigo-700">₹25L+</h3>
+      <p class="text-gray-600">Expenses Tracked</p>
+    </div>
+    <div>
+      <h3 class="text-5xl font-extrabold text-indigo-700">98%</h3>
+      <p class="text-gray-600">User Satisfaction</p>
+    </div>
+  </div>
+</section>
 
-        <!-- Feature Cards -->
+<!-- Empower Section -->
+<section class="m-20 p-8 bg-white/70 rounded-xl shadow-lg">
+  <h1 class="m-8 text-center text-3xl font-bold">EMPOWERING YOUR FINANCIAL GOALS</h1>
+  <p class="text-xl p-4 m-4">
+    Expense Tracker Pro helps you gain control over your financial situation. 
+    With our interactive tools, you can effortlessly calculate, manage, and edit your expenses anytime.
+  </p>
+  <div class="m-8 flex flex-col md:flex-row justify-center gap-10 items-center">
+    <img src="https://img.freepik.com/premium-vector/expenses-vector-illustration-can-be-used-accounting_1237743-80513.jpg" alt="" class="h-96 w-1/2 rounded-md shadow-xl">
+    <div class="m-10">
+      <p class="text-md mb-4">We believe in making financial planning accessible to everyone. Our platform is designed to suit all kinds of users looking to improve their budgeting skills.</p>
+      <button class="border border-gray-800 px-6 py-2 rounded-md hover:scale-105 hover:bg-gray-800 hover:text-white transition">Learn More</button>
+    </div>
+  </div>
+</section>
 
-        <div class="absolute right-16 bottom-40 flex flex-col gap-6 items-end">
-            <a href="1.html"><div class="bg-white p-6 rounded-2xl shadow-lg w-56 hover:scale-105 transition duration-300">
-                <img class="w-10 mb-3" src="https://cdn-icons-png.flaticon.com/512/1161/1161388.png" alt="">
-                <h2 class="font-bold text-lg text-gray-800">Track Expenses</h2>
-                <p class="text-sm text-gray-600 mt-2">Record and monitor your daily spending.</p>
-            </div></a>
-            <div class="bg-white p-6 rounded-2xl shadow-lg w-56 hover:scale-105 transition duration-300">
-                <img class="w-10 mb-3" src="https://cdn-icons-png.flaticon.com/512/1490/1490859.png" alt="">
-                <h2 class="font-bold text-lg text-gray-800">Set Budgets</h2>
-                <p class="text-sm text-gray-600 mt-2">Plan and manage your money better.</p>
-            </div>
-            <div class="bg-white p-6 rounded-2xl shadow-lg w-56 hover:scale-105 transition duration-300">
-                <img class="w-10 mb-3" src="https://cdn-icons-png.flaticon.com/512/2164/2164889.png" alt="">
-                <h2 class="font-bold text-lg text-gray-800">Gain Insights</h2>
-                <p class="text-sm text-gray-600 mt-2">Visualize your spending with charts.</p>
-            </div>
-        </div>
-        <!-- Footer -->
-<footer class="absolute bottom-0 w-full  text-center py-3 text-gray-600 text-sm">
-    © 2025 Expense Tracker. All rights reserved.
+<!-- Testimonials -->
+<section class="bg-gradient-to-tr from-indigo-100 to-pink-100 py-16">
+  <h2 class="text-center text-4xl font-bold mb-10 text-gray-800">What Our Users Say</h2>
+  <div class="flex flex-wrap justify-center gap-10 px-10">
+    <div class="bg-white shadow-xl p-6 rounded-2xl max-w-xs hover:scale-105 transition">
+      <p class="italic text-gray-700 mb-4">"Expense Tracker changed how I manage my money. It's simple yet powerful!"</p>
+      <h4 class="font-semibold">— Aditi Sharma</h4>
+    </div>
+    <div class="bg-white shadow-xl p-6 rounded-2xl max-w-xs hover:scale-105 transition">
+      <p class="italic text-gray-700 mb-4">"Love the insights and auto-budgeting feature. Makes saving fun!"</p>
+      <h4 class="font-semibold">— Rahul Verma</h4>
+    </div>
+    <div class="bg-white shadow-xl p-6 rounded-2xl max-w-xs hover:scale-105 transition">
+      <p class="italic text-gray-700 mb-4">"Finally an app that helps me stay financially organized!"</p>
+      <h4 class="font-semibold">— Sneha Patel</h4>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="bg-white text-center py-4 text-gray-700 text-sm border-t">
+  © 2025 Expense Tracker. All rights reserved.
 </footer>
 
-
-        
-        
-    </main>
 </body>
 </html>

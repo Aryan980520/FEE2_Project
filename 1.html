@@ -3,79 +3,154 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Budget App</title>
+  <title>Expense Tracker</title>
   <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-gray-100 min-h-screen flex flex-col">
+
+<body class="bg-gradient-to-br from-blue-100 via-purple-100 to-pink-100 min-h-screen flex flex-col font-sans">
 
   <!-- Navbar -->
-  <div class="bg-blue-600 text-white px-6 py-4 shadow-md flex justify-between items-center">
-    <h1 class="text-xl font-bold">Expense Tracker App</h1>
-    <ul class="flex space-x-6">
-      <a href="Index.html"><button class="font-bold bg-blue-800 p-2 rounded-xl hover:bg-blue-500 hover:scale-105 transform transition duration-300 ease-in-out">Home</button></a>
-      <a href="Index.html"><button class="font-bold bg-blue-800 p-2 rounded-xl hover:bg-blue-500 hover:scale-105 transform transition duration-300 ease-in-out">About</button></a>
-      <a href="contact.html"><button class="font-bold bg-blue-800 p-2 rounded-xl hover:bg-blue-500 hover:scale-105 transform transition duration-300 ease-in-out">Contact</button></a>
-    </ul>
-  </div>
+  <header class="bg-gradient-to-r from-blue-600 to-purple-600 text-white px-6 py-4 shadow flex justify-between items-center fixed top-0 left-0 w-full z-50">
+    <!-- Logo -->
+    <h1 class="text-2xl font-bold">💸 Expense Tracker</h1>
 
-  <!-- Full Page Content -->
-  <div class="flex-1 flex justify-center items-start p-12">
-    <div class="bg-white shadow-lg rounded-lg p-8 w-full h-screen">
-      
-      <h2 class="text-3xl font-bold text-center mb-8">Expense Tracker</h2>
+    <!-- Navigation Menu -->
+    <nav>
+      <ul class="flex gap-6 text-white font-medium">
+        <li><a href="index.html" class="px-4 py-2 rounded-lg hover:bg-white hover:text-blue-700 transition">Home</a></li>
+        <li><a href="about.html" class="px-4 py-2 rounded-lg hover:bg-white hover:text-blue-700 transition">About</a></li>
+        <li><a href="contact.html" class="px-4 py-2 rounded-lg hover:bg-white hover:text-blue-700 transition">Contact</a></li>
+        <li><a href="feedback.html" class="px-4 py-2 rounded-lg hover:bg-white hover:text-blue-700 transition">Feedback</a></li>
+        <li><a href="1.html" class="px-4 py-2 rounded-lg hover:bg-white hover:text-blue-700 transition">Dashboard</a></li>
+        <li><a href="sign.html" class="border border-white px-4 py-2 rounded-lg hover:bg-white hover:text-blue-700 transition">Sign In</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- Main Wrapper -->
+  <div class="w-full flex justify-center p-6 md:p-12 mt-24">
+    <div class="bg-white shadow rounded-2xl p-8 w-full max-w-6xl border border-gray-200/50">
+
+      <!-- Title -->
+      <h2 class="text-4xl font-bold text-center mb-12 text-gray-800">Track Your Expenses</h2>
 
       <!-- Input Section -->
-      <div class="flex flex-wrap gap-10 items-center mb-6">
-        <input type="number" placeholder="Enter Your Budget!" 
-               class="border px-3 py-2 rounded-md">
-
-        <button class="bg-blue-600 text-white px-4 py-2 rounded-md ">
+      <section class="flex flex-wrap gap-4 justify-center mb-12">
+        <input id="budgetInput" type="number" placeholder="Enter Your Budget" class="border px-4 py-2 rounded shadow-md">
+        <button id="calculateBtn" class="bg-blue-600 text-white px-5 py-2 rounded font-semibold shadow hover:scale-105 transition">
           Calculate
         </button>
+        <input id="expenseDesc" type="text" placeholder="Expense Description" class="border px-4 py-2 rounded shadow-md">
+        <input id="expenseAmount" type="number" placeholder="Expense Amount" class="border px-4 py-2 rounded shadow-md">
+        <button id="addExpenseBtn" class="bg-blue-600 text-white px-5 py-2 rounded font-semibold shadow hover:scale-105 transition">
+          Add
+        </button>
+      </section>
 
-        <input type="text" placeholder="Enter Your Expenses Desc!" 
-               class="border px-3 py-2 rounded-md">
-
-        <input type="number" placeholder="Expenses Amount" 
-               class="border px-3 py-2 rounded-md">
-
-        <button class="bg-blue-600 text-white px-4 py-2 rounded-md">Add</button>
-      </div>
-
-      <!-- Cards Section -->
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-        <div class="flex items-center bg-blue-100 p-6 rounded-xl shadow">
-          <div class="text-4xl mr-4">💰</div>
+      <!-- Budget Cards -->
+      <section class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+        <!-- Budget Card -->
+        <div class="flex items-center bg-blue-100 p-4 rounded-xl shadow hover:scale-105 transition">
+          <div class="text-3xl mr-3">💰</div>
           <div>
-            <p class="text-gray-500">Budget</p>
+            <p class="text-gray-600">Budget</p>
+            <p id="budgetCard" class="text-xl font-bold text-gray-800">₹0</p>
           </div>
         </div>
-        <div class="flex items-center bg-yellow-100 p-6 rounded-xl shadow">
-          <div class="text-4xl mr-4">💳</div>
+
+        <!-- Expenses Card -->
+        <div class="flex items-center bg-yellow-100 p-4 rounded-xl shadow hover:scale-105 transition">
+          <div class="text-3xl mr-3">💳</div>
           <div>
-            <p class="text-gray-500">Expenses</p>
+            <p class="text-gray-600">Expenses</p>
+            <p id="expensesCard" class="text-xl font-bold text-gray-800">₹0</p>
           </div>
         </div>
-        <div class="flex items-center bg-green-100 p-6 rounded-xl shadow">
-          <div class="text-4xl mr-4">💵</div>
+
+        <!-- Balance Card -->
+        <div class="flex items-center bg-green-100 p-4 rounded-xl shadow hover:scale-105 transition">
+          <div class="text-3xl mr-3">💵</div>
           <div>
-            <p class="text-gray-500">Balance</p>
+            <p class="text-gray-600">Balance</p>
+            <p id="balanceCard" class="text-xl font-bold text-gray-800">₹0</p>
           </div>
         </div>
-      </div>
+      </section>
 
       <!-- Budget Details Table -->
-      <div class="bg-white shadow rounded-md w-full p-4">
-        <h2 class="text-lg font-semibold mb-3">Budget Details</h2>
-        <div class="grid grid-cols-4 font-semibold bg-gray-100 border rounded-md">
-          <div class="p-2 border">#</div>
-          <div class="p-2 border">Detail</div>
-          <div class="p-2 border">Amount</div>
-          <div class="p-2 border">Action</div>
+      <section>
+        <h2 class="text-2xl font-semibold mb-4 text-gray-800">Budget Details</h2>
+        <div class="overflow-x-auto rounded-xl shadow-lg">
+          <table id="expenseTable" class="w-full border border-gray-200 text-left bg-white rounded-xl">
+            <thead class="bg-gradient-to-r from-blue-200 to-purple-200">
+              <tr class="text-gray-700">
+                <th class="px-4 py-3 border">#</th>
+                <th class="px-4 py-3 border">Detail</th>
+                <th class="px-4 py-3 border">Amount</th>
+                <th class="px-4 py-3 border">Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- Dynamic rows will be added here -->
+            </tbody>
+          </table>
         </div>
-      </div>
+      </section>
+
     </div>
   </div>
+
+  <!-- JavaScript Section -->
+  <script>
+    let budget = 0;
+    let expenses = 0;
+    let count = 0;
+
+    const budgetInput = document.getElementById('budgetInput');
+    const calculateBtn = document.getElementById('calculateBtn');
+    const expenseDesc = document.getElementById('expenseDesc');
+    const expenseAmount = document.getElementById('expenseAmount');
+    const addExpenseBtn = document.getElementById('addExpenseBtn');
+
+    const budgetCard = document.getElementById('budgetCard');
+    const expensesCard = document.getElementById('expensesCard');
+    const balanceCard = document.getElementById('balanceCard');
+    const tbody = document.querySelector('#expenseTable tbody');
+
+    // Calculate Budget
+    calculateBtn.onclick = () => {
+      budget = Number(budgetInput.value);
+      if (!budget || budget < 0) return alert("Enter a valid budget!");
+      budgetCard.textContent = `₹${budget}`;
+      balanceCard.textContent = `₹${budget - expenses}`;
+    };
+
+    // Add Expense
+    addExpenseBtn.onclick = () => {
+      const desc = expenseDesc.value.trim();
+      const amount = Number(expenseAmount.value);
+      if (!desc || !amount || amount < 0) return alert("Enter valid expense!");
+      
+      expenses += amount;
+      expensesCard.textContent = `₹${expenses}`;
+      balanceCard.textContent = `₹${budget - expenses}`;
+      
+      // Add row to table
+      count++;
+      const row = document.createElement('tr');
+      row.innerHTML = `
+        <td class="px-4 py-3 border">${count}</td>
+        <td class="px-4 py-3 border">${desc}</td>
+        <td class="px-4 py-3 border">₹${amount}</td>
+        <td class="px-4 py-3 border text-center text-red-600 cursor-pointer hover:text-red-800">🗑️</td>
+      `;
+      tbody.appendChild(row);
+
+      // Clear inputs
+      expenseDesc.value = '';
+      expenseAmount.value = '';
+    };
+  </script>
 
 </body>
 </html>
