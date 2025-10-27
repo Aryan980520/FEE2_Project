@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Feedback - Expense Tracker</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    * {
+      transition: all 0.3s ease;
+    }
+
+    /* 💫 Success popup animation */
+    .popup {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background: linear-gradient(to right, #3b82f6, #9333ea);
+      color: white;
+      padding: 15px 25px;
+      border-radius: 12px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+      font-weight: 600;
+      opacity: 0;
+      transform: translateY(-10px);
+      transition: all 0.4s ease;
+      z-index: 999;
+    }
+
+    .popup.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  </style>
+</head>
+
+<body id="page"
+  class="bg-gradient-to-r from-blue-400 via-purple-200 to-indigo-300 flex items-center justify-center h-screen transition-all duration-500">
+
+  <div class="bg-white shadow-2xl rounded-2xl p-8 w-full max-w-md relative">
+    <!-- 🌓 Toggle Button -->
+    <button id="toggleMode"
+      class="absolute top-1 right-1 bg-gray-200 text-gray-800 px-3 py-1 rounded-xl text-sm font-semibold hover:bg-gray-300 transition">
+      🌙 Night Mode
+    </button>
+
+    <h1 class="text-2xl font-bold text-center text-blue-600 mb-4">We Value Your Feedback 💬</h1>
+    <p class="text-gray-600 text-center mb-6">Help us improve your experience by sharing your thoughts.</p>
+
+    <!-- Feedback Form -->
+    <form id="feedbackForm" class="space-y-4">
+      <!-- Name -->
+      <div>
+        <label for="name" class="block text-sm font-medium text-gray-700">Your Name</label>
+        <input type="text" id="name" placeholder="Enter your name"
+          class="mt-1 block w-full rounded-xl border-gray-300 shadow-lg p-2">
+      </div>
+
+      <!-- Email -->
+      <div>
+        <label for="email" class="block text-sm font-medium text-gray-700">Your Email</label>
+        <input type="email" id="email" placeholder="Enter your email"
+          class="mt-1 block w-full rounded-xl border-gray-300 shadow-lg p-2">
+      </div>
+
+      <!-- Feedback Message -->
+      <div>
+        <label for="feedback" class="block text-sm font-medium text-gray-700">Your Feedback</label>
+        <textarea id="feedback" rows="4" placeholder="Write your feedback here..."
+          class="mt-1 block w-full rounded-xl border-gray-800 shadow-lg p-2"></textarea>
+      </div>
+
+      <!-- Submit Button -->
+      <button type="submit" id="submitBtn"
+        class="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 rounded-xl transition">
+        Submit Feedback
+      </button>
+
+      <a href="1.html"
+        class="bg-blue-600 text-white rounded-xl px-8 py-3 font-semibold text-center hover:bg-blue-700 flex justify-center items-center">
+        Back
+      </a>
+    </form>
+  </div>
+
+  <!-- 💫 Popup Message -->
+  <div id="popup" class="popup">Feedback submitted successfully! 💖</div>
+
+  <!-- 🌗 JavaScript for Theme Toggle + Form Validation -->
+  <script>
+    const toggleButton = document.getElementById("toggleMode");
+    const page = document.getElementById("page");
+    const popup = document.getElementById("popup");
+    const form = document.getElementById("feedbackForm");
+    const submitBtn = document.getElementById("submitBtn");
+
+    let darkMode = false;
+
+    // 🌗 Toggle Mode
+    toggleButton.addEventListener("click", () => {
+      darkMode = !darkMode;
+
+      if (darkMode) {
+        page.className = "bg-gradient-to-r from-gray-900 via-gray-800 to-gray-700 flex items-center justify-center h-screen transition-all duration-500";
+        document.querySelector(".bg-white").classList.replace("bg-white", "bg-gray-900");
+        document.querySelector("h1").classList.replace("text-blue-600", "text-blue-400");
+        document.querySelector("p").classList.replace("text-gray-600", "text-gray-300");
+        document.querySelectorAll("label").forEach(lbl => lbl.classList.replace("text-gray-700", "text-gray-200"));
+        document.querySelectorAll("input, textarea").forEach(el => {
+          el.classList.add("bg-gray-800", "text-white");
+        });
+        toggleButton.textContent = "☀️ Day Mode";
+      } else {
+        page.className = "bg-gradient-to-r from-blue-400 via-purple-200 to-indigo-300 flex items-center justify-center h-screen transition-all duration-500";
+        document.querySelector(".bg-gray-900").classList.replace("bg-gray-900", "bg-white");
+        document.querySelector("h1").classList.replace("text-blue-400", "text-blue-600");
+        document.querySelector("p").classList.replace("text-gray-300", "text-gray-600");
+        document.querySelectorAll("label").forEach(lbl => lbl.classList.replace("text-gray-200", "text-gray-700"));
+        document.querySelectorAll("input, textarea").forEach(el => {
+          el.classList.remove("bg-gray-800", "text-white");
+        });
+        toggleButton.textContent = "🌙 Night Mode";
+      }
+    });
+
+    // 💌 Form Submission Handling
+    form.addEventListener("submit", (e) => {
+      e.preventDefault();
+
+      const name = document.getElementById("name").value.trim();
+      const email = document.getElementById("email").value.trim();
+      const feedback = document.getElementById("feedback").value.trim();
+
+      if (!name || !email || !feedback) {
+        popup.textContent = "⚠️ Please fill out all fields!";
+        popup.style.background = "linear-gradient(to right, #ef4444, #dc2626)";
+        popup.classList.add("show");
+        setTimeout(() => popup.classList.remove("show"), 2500);
+        return;
+      }
+
+      // ✅ Success popup
+      popup.textContent = "✅ Feedback submitted successfully!";
+      popup.style.background = "linear-gradient(to right, #3b82f6, #9333ea)";
+      popup.classList.add("show");
+      setTimeout(() => popup.classList.remove("show"), 2500);
+
+      // 💫 Button animation
+      submitBtn.textContent = "✨ Submitted!";
+      submitBtn.classList.add("bg-green-600");
+      setTimeout(() => {
+        submitBtn.textContent = "Submit Feedback";
+        submitBtn.classList.remove("bg-green-600");
+        form.reset();
+      }, 2000);
+    });
+  </script>
+
+</body>
+</html>
