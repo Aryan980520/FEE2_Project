@@ -1,20 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Expense Tracker</title>
   <script src="https://cdn.tailwindcss.com"></script>
 </head>
-
 <body class="bg-gradient-to-br from-blue-100 via-purple-100 to-pink-100 min-h-screen flex flex-col font-sans">
 
   <!-- Navbar -->
   <header class="bg-gradient-to-r from-blue-600 to-purple-600 text-white px-6 py-4 shadow flex justify-between items-center fixed top-0 left-0 w-full z-50">
-    <!-- Logo -->
     <h1 class="text-2xl font-bold">💸 Expense Tracker</h1>
-
-    <!-- Navigation Menu -->
     <nav>
       <ul class="flex gap-6 text-white font-medium">
         <li><a href="index.html" class="px-4 py-2 rounded-lg hover:bg-white hover:text-blue-700 transition">Home</a></li>
@@ -49,7 +45,6 @@
 
       <!-- Budget Cards -->
       <section class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
-        <!-- Budget Card -->
         <div class="flex items-center bg-blue-100 p-4 rounded-xl shadow hover:scale-105 transition">
           <div class="text-3xl mr-3">💰</div>
           <div>
@@ -58,7 +53,6 @@
           </div>
         </div>
 
-        <!-- Expenses Card -->
         <div class="flex items-center bg-yellow-100 p-4 rounded-xl shadow hover:scale-105 transition">
           <div class="text-3xl mr-3">💳</div>
           <div>
@@ -67,7 +61,6 @@
           </div>
         </div>
 
-        <!-- Balance Card -->
         <div class="flex items-center bg-green-100 p-4 rounded-xl shadow hover:scale-105 transition">
           <div class="text-3xl mr-3">💵</div>
           <div>
@@ -91,7 +84,7 @@
               </tr>
             </thead>
             <tbody>
-              <!-- Dynamic rows will be added here -->
+              <!-- Dynamic rows added here -->
             </tbody>
           </table>
         </div>
@@ -100,57 +93,202 @@
     </div>
   </div>
 
-  <!-- JavaScript Section -->
-  <script>
-    let budget = 0;
-    let expenses = 0;
-    let count = 0;
+  <!-- Edit Expense Modal -->
+  <div id="editModal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
+    <div class="bg-white p-6 rounded-xl shadow-lg w-96">
+      <h2 class="text-xl font-semibold mb-4 text-gray-700">Edit Expense</h2>
+      <input id="editDesc" type="text" class="w-full border p-2 rounded mb-3" placeholder="Expense Description">
+      <input id="editAmount" type="number" class="w-full border p-2 rounded mb-3" placeholder="Amount">
+      <div class="flex justify-end gap-3">
+        <button id="cancelEditBtn" class="px-4 py-2 bg-gray-400 text-white rounded">Cancel</button>
+        <button id="saveEditBtn" class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">Save</button>
+      </div>
+    </div>
+  </div>
 
-    const budgetInput = document.getElementById('budgetInput');
-    const calculateBtn = document.getElementById('calculateBtn');
-    const expenseDesc = document.getElementById('expenseDesc');
-    const expenseAmount = document.getElementById('expenseAmount');
-    const addExpenseBtn = document.getElementById('addExpenseBtn');
 
-    const budgetCard = document.getElementById('budgetCard');
-    const expensesCard = document.getElementById('expensesCard');
-    const balanceCard = document.getElementById('balanceCard');
-    const tbody = document.querySelector('#expenseTable tbody');
+<!--JAVASCRIPT-->
+ <script>
+(function () {
+// CONFIG
+  const API_URL = "http://localhost:3000/expenses";
+  const budgetStorageKey = "expenseTracker_budget_v1";
 
-    // Calculate Budget
-    calculateBtn.onclick = () => {
-      budget = Number(budgetInput.value);
-      if (!budget || budget < 0) return alert("Enter a valid budget!");
-      budgetCard.textContent = `₹${budget}`;
-      balanceCard.textContent = `₹${budget - expenses}`;
-    };
+//STATE
+  let budget = 0;
+  let expenses = 0;
+  let editId = null;
 
-    // Add Expense
-    addExpenseBtn.onclick = () => {
-      const desc = expenseDesc.value.trim();
-      const amount = Number(expenseAmount.value);
-      if (!desc || !amount || amount < 0) return alert("Enter valid expense!");
-      
-      expenses += amount;
-      expensesCard.textContent = `₹${expenses}`;
-      balanceCard.textContent = `₹${budget - expenses}`;
-      
-      // Add row to table
-      count++;
-      const row = document.createElement('tr');
-      row.innerHTML = `
-        <td class="px-4 py-3 border">${count}</td>
-        <td class="px-4 py-3 border">${desc}</td>
-        <td class="px-4 py-3 border">₹${amount}</td>
-        <td class="px-4 py-3 border text-center text-red-600 cursor-pointer hover:text-red-800">🗑️</td>
-      `;
-      tbody.appendChild(row);
 
-      // Clear inputs
-      expenseDesc.value = '';
-      expenseAmount.value = '';
-    };
-  </script>
+//ELEMENTS
+  const budgetInput = document.getElementById('budgetInput');
+  const calculateBtn = document.getElementById('calculateBtn');
+  const expenseDesc = document.getElementById('expenseDesc');
+  const expenseAmount = document.getElementById('expenseAmount');
+  const addExpenseBtn = document.getElementById('addExpenseBtn');
+
+  const budgetCard = document.getElementById('budgetCard');
+  const expensesCard = document.getElementById('expensesCard');
+  const balanceCard = document.getElementById('balanceCard');
+  const tbody = document.querySelector('#expenseTable tbody');
+
+  const editModal = document.getElementById('editModal');
+  const editDesc = document.getElementById('editDesc');
+  const editAmount = document.getElementById('editAmount');
+  const saveEditBtn = document.getElementById('saveEditBtn');
+  const cancelEditBtn = document.getElementById('cancelEditBtn');
+
+
+  function updateCards() {
+    budgetCard.textContent = `₹${budget}`;
+    expensesCard.textContent = `₹${expenses}`;
+    balanceCard.textContent = `₹${budget - expenses}`;
+  }
+
+//BUDGET FOR STORAGE
+  function saveBudgetToStorage() {
+    localStorage.setItem(budgetStorageKey, String(budget));
+  }
+
+  function loadBudgetFromStorage() {
+    const value = localStorage.getItem(budgetStorageKey);
+    if (value !== null) budget = Number(value) || 0;
+  }
+
+
+//API INTERACTION
+  async function safeFetch(url, opts) {
+    const res = await fetch(url, opts);
+    if (!res.ok) throw new Error();
+    return res;
+  }
+
+  async function loadExpenses() {
+    try {
+      const res = await safeFetch(API_URL);
+      const data = await res.json();
+
+      tbody.innerHTML = ""; //empty
+      expenses = 0;
+
+      data.sort((a, b) => Number(a.id) - Number(b.id));
+
+      data.forEach((item, idx) => {
+        expenses += Number(item.amount) || 0;
+
+        const row = document.createElement('tr');
+        row.innerHTML = `
+          <td class="px-4 py-3 border">${idx + 1}</td>
+          <td class="px-4 py-3 border">${item.desc}</td>
+          <td class="px-4 py-3 border">₹${item.amount}</td>
+          <td class="px-4 py-3 border text-center">
+            <button data-action="edit" data-id="${item.id}" data-desc="${item.desc}" data-amount="${item.amount}" class="text-blue-600 mr-3">✏️</button>
+            <button data-action="delete" data-id="${item.id}" data-amount="${item.amount}" class="text-red-600">🗑️</button>
+          </td>
+        `;
+        tbody.appendChild(row);
+      });
+
+      updateCards();
+    } catch {
+      console.warn("Start JSON Server to load expenses.");
+    }
+  }
+
+  async function addExpense(desc, amount) {
+    await safeFetch(API_URL, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ desc, amount })
+    });
+    await loadExpenses();
+  }
+
+  async function deleteExpenseById(id) {
+    await safeFetch(`${API_URL}/${id}`, { method: "DELETE" });
+    await loadExpenses();
+  }
+
+  async function updateExpenseById(id, desc, amount) {
+    await safeFetch(`${API_URL}/${id}`, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ desc, amount })
+    });
+    await loadExpenses();
+  }
+
+
+// UI EVENTS
+  calculateBtn.addEventListener('click', () => {
+    const value = Number(budgetInput.value);
+    if (value > 0) {
+      budget = value;
+      saveBudgetToStorage();
+      updateCards();
+    } else alert("Enter valid budget");
+  });
+
+  addExpenseBtn.addEventListener('click', async () => {
+    const desc = expenseDesc.value.trim();
+    const amount = Number(expenseAmount.value);
+    if (desc && amount > 0) {
+      await addExpense(desc, amount);
+      expenseDesc.value = "";
+      expenseAmount.value = "";
+    } else alert("Enter valid expense details");
+  });
+
+
+//TABLE DELEGATION FOR EDIT/DELETE
+  tbody.addEventListener('click', (ev) => {
+    const btn = ev.target.closest('button');
+    if (!btn) return;
+
+    const action = btn.dataset.action;
+    const id = btn.dataset.id;
+
+    if (action === 'delete') {
+      deleteExpenseById(id);
+    }
+
+    if (action === 'edit') {
+      editId = id;
+      editDesc.value = btn.dataset.desc;
+      editAmount.value = btn.dataset.amount;
+      editModal.classList.remove('hidden');
+    }
+  });
+
+
+// MODAL BUTTONS
+
+//SAVE
+  saveEditBtn.addEventListener('click', async () => {
+    const desc = editDesc.value.trim();
+    const amt = Number(editAmount.value);
+    if (desc && amt > 0) {
+      await updateExpenseById(editId, desc, amt);
+      editModal.classList.add('hidden');
+    }
+  });
+//CANCEL
+  cancelEditBtn.addEventListener('click', () => {
+    editModal.classList.add('hidden');
+  });
+
+
+// INIT
+  (async function init() {
+    loadBudgetFromStorage();
+    budgetInput.value = budget || "";
+    updateCards();
+    await loadExpenses();
+  })();
+
+})();
+</script>
+
 
 </body>
 </html>
